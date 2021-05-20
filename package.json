@@ -1,0 +1,22 @@
+{
+  "name": "express-js-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diopratama97/express-js-api.git"
+  },
+  "keywords": [
+    "express-js-api"
+  ],
+  "author": "diopratama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diopratama97/express-js-api/issues"
+  },
+  "homepage": "https://github.com/diopratama97/express-js-api#readme"
+}
