@@ -18,4 +18,6 @@ module.exports = (app) => {
         .put(mahasiswa.updateMahasiswa);
     app.route('/Mahasiswa/:id')
         .delete(mahasiswa.deleteMahasiswa);
+    app.route('/nestedJsonMahasiswa')
+        .get(mahasiswa.getGroupMatakuliah);
 }

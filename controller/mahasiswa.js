@@ -66,3 +66,15 @@ exports.deleteMahasiswa = (req,res) => {
         }
     })
 }
+
+//tampil matakuliah nested json object
+exports.getGroupMatakuliah = (reg,res) => {
+    connection.query('SELECT mahasiswa.*,matakuliah.matakuliah,matakuliah.sks FROM krs JOIN matakuliah,mahasiswa WHERE krs.id_matakuliah=matakuliah.id AND krs.id_mahasiswa=mahasiswa.id ORDER BY mahasiswa.id',
+    (error,rows,fields)=>{
+        if (error) {
+            console.log(error);
+        }else{
+            response.nested(rows,res);
+        }
+    })
+}
