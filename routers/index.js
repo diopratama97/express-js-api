@@ -1,5 +1,7 @@
 'use strict';
 
+const verification = require('../middleware/verification');
+
 module.exports = (app) => {
     let home = require('../controller/index');
     let mahasiswa = require('../controller/mahasiswa');
@@ -9,7 +11,7 @@ module.exports = (app) => {
 
     //mahasiswa
     app.route('/Mahasiswa')
-        .get(mahasiswa.getAllMahasiswa);
+        .get(verification(),mahasiswa.getAllMahasiswa);
     app.route('/Mahasiswa/:id')
         .get(mahasiswa.getOneMahasiswa);
     app.route('/Mahasiswa')
