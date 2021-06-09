@@ -1,9 +1,19 @@
 'use strict';
 
-exports.ok = function (values,res) {
+exports.ok = (datas,res) => {
     let data = {
         'status': 200,
-        'values': values
+        'data': datas
+    };
+     res.json(data);
+     res.end();
+}
+
+exports.err = (datas,res) =>{
+    let data = {
+        'status': 500,
+        'message': 'Internal Server Error',
+        'error': datas
     };
      res.json(data);
      res.end();

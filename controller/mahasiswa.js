@@ -5,9 +5,9 @@ let connection = require('../db/koneksi');
 
 //get all 
 exports.getAllMahasiswa = (req,res) => {
-    connection.query('SELECT * FROM mahasiswa',(error,rows,fields)=>{
+    connection.query('SELECT * FROM mahasisw',(error,rows,fields)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.ok(rows,res);
         }
@@ -19,7 +19,7 @@ exports.getOneMahasiswa = (req,res) => {
     let id = req.params.id;
     connection.query('SELECT * FROM mahasiswa WHERE id = ?',[id],(error,rows,fields)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.ok(rows,res);
         }
@@ -33,7 +33,7 @@ exports.addMahasiswa = (req,res) => {
     connection.query('INSERT INTO mahasiswa (nim,nama,jurusan) VALUES(?,?,?)',[nim,nama,jurusan],
     (error,rows,fields)=> {
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.ok('INSERT SUCCESS',res);
         }
@@ -48,7 +48,7 @@ exports.updateMahasiswa = (req,res) => {
     connection.query('UPDATE mahasiswa SET nim=?,nama=?,jurusan=? WHERE id=?',[nim,nama,jurusan,id],
     (error,rows,fields)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.ok('UPDATE SUCCESS',res)
         }
@@ -60,7 +60,7 @@ exports.deleteMahasiswa = (req,res) => {
 
     connection.query('DELETE FROM mahasiswa WHERE id=?',[id],(error,rows,fields)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.ok('DELETE SUCCESS',res);
         }
@@ -72,7 +72,7 @@ exports.getGroupMatakuliah = (reg,res) => {
     connection.query('SELECT mahasiswa.*,matakuliah.matakuliah,matakuliah.sks FROM krs JOIN matakuliah,mahasiswa WHERE krs.id_matakuliah=matakuliah.id AND krs.id_mahasiswa=mahasiswa.id ORDER BY mahasiswa.id',
     (error,rows,fields)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             response.nested(rows,res);
         }

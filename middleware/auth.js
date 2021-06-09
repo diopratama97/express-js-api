@@ -23,7 +23,7 @@ exports.registrasi = (req,res) =>{
 
     connection.query(queryCekemail, (error,rows)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             if (rows.length == 0) {
                 let queryInsert = "INSERT INTO ?? SET ?";
@@ -31,7 +31,7 @@ exports.registrasi = (req,res) =>{
                 queryInsert = mysql.format(queryInsert,table);
                 connection.query(queryInsert, post, (error,rows)=>{
                     if (error) {
-                        console.log(error);
+                        response.err(error,res);
                     }else{
                         response.ok("Berhasil menambahkan user baru", res)
                     }
@@ -56,7 +56,7 @@ exports.login = (req,res) =>{
     queryLogin = mysql.format(queryLogin,table);
     connection.query(queryLogin, (error, rows)=>{
         if (error) {
-            console.log(error);
+            response.err(error,res);
         }else{
             if (rows.length == 1) {
                 let token = jwt.sign({rows},config.secret,{
@@ -75,7 +75,7 @@ exports.login = (req,res) =>{
                 queryTokeninsert = mysql.format(queryTokeninsert,table);
                 connection.query(queryTokeninsert,data,(error,rows)=>{
                     if (error) {
-                        console.log(error);
+                        response.err(error,res);
                     }else{
                          res.json({
                              success:true,

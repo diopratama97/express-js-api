@@ -11,7 +11,7 @@ module.exports = (app) => {
 
     //mahasiswa
     app.route('/Mahasiswa')
-        .get(verification(),mahasiswa.getAllMahasiswa);
+        .get(mahasiswa.getAllMahasiswa);
     app.route('/Mahasiswa/:id')
         .get(mahasiswa.getOneMahasiswa);
     app.route('/Mahasiswa')
