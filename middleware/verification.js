@@ -13,7 +13,7 @@ function verification() {
                 if (err) {
                     return rest.status(401).send({
                         auth:false,
-                        message: "Token tidak terdaftar"
+                        message: err
                     });
                 }else{
                     // if (role==2) {

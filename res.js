@@ -19,6 +19,35 @@ exports.err = (datas,res) =>{
      res.end();
 }
 
+exports.duplikat = (datas,res) =>{
+    let data = {
+        'status': 409,
+        'message': datas
+    };
+     res.json(data);
+     res.end();
+}
+
+exports.errLogin = (datas,res) =>{
+    let data = {
+        'status': 404,
+        'message': datas
+    };
+     res.json(data);
+     res.end();
+}
+
+exports.Login = (token,id,res) =>{
+    let data = {
+        'status': 200,
+        'message': 'Login Berhasil',
+        'token': token,
+        'userId': id
+    };
+     res.json(data);
+     res.end();
+}
+
 //respons nested json object
 exports.nested = (values,res) => {
     //lakukan akumulasi
