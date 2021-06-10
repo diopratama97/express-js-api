@@ -41,7 +41,7 @@ exports.nested = (values,res) => {
 
     let data = {
         'status':200,
-        'values': hasil
+        'data': hasil
     };
      res.json(data);
      res.end();
