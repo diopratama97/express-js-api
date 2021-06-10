@@ -4,11 +4,13 @@ let jwt = require('jsonwebtoken');
 let config = require('../config/secret');
 let ip = require('ip');
 let knex = require('../db/koneksi-knex');
+const { uuidv4 } = require('uuidv4');
 
 //controller untuk register
 exports.registrasi = async (req,res) =>{
     try {
         let post = {
+            id: uuidv4(),
             username: req.body.username,
             email: req.body.email,
             password: md5(req.body.password),
