@@ -48,7 +48,7 @@ exports.login = async (req,res) =>{
 
             let data = {
                 id_user:queryLogin.id,
-                access_token: token,
+                //access_token: token,
                 ip_address: ip.address()
             }
 
