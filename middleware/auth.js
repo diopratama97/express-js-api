@@ -4,7 +4,8 @@ let jwt = require('jsonwebtoken');
 let config = require('../config/secret');
 let ip = require('ip');
 let knex = require('../db/koneksi-knex');
-const { uuidv4 } = require('uuidv4');
+const { v4: uuidv4 } = require('uuid');
+const nodemailer = require("nodemailer");
 
 //controller untuk register
 exports.registrasi = async (req,res) =>{
@@ -22,9 +23,29 @@ exports.registrasi = async (req,res) =>{
         if (!queryCekemail) {
             const queryInsert = await knex('user').insert(post);
             if (queryInsert) {
-                response.ok("Berhasil menambahkan user baru", res)
+                  // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 465,
+                    secure: true, // true for 465, false for other ports
+                    auth: {
+                    user: 'lagimakan92@gmail.com', // generated ethereal user
+                    pass: 'password', // generated ethereal password
+                    },
+                });
+
+                  // send mail with defined transport object
+                let info = await transporter.sendMail({
+                    from: '"Express-js-api 👻" <lagimakan92@gmail.com>', // sender address
+                    to: post.email, // list of receivers
+                    subject: "Hello ✔", // Subject line
+                    text: "Hello world?", // plain text body
+                    html: "<b>Hello world?</b>", // html body
+                });
+
+                response.ok("Registrasi Berhasil", res)
             }else{
-                response.err("Gagal menambahkan user",res);
+                response.err("Registrasi gagal!",res);
             }
         }else{
             response.duplikat("Data sudah tersedia",res);
