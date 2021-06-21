@@ -13,7 +13,7 @@ let routes = require('./routers/index');
 routes(app);
 
 //daftar menu routes dari index
-app.use('/auth',require('./middleware'));
+app.use('/api',require('./middleware'));
 
 app.listen(3030, () => {
     console.log(`Server started on port 3030`);

@@ -2,20 +2,21 @@ let md5 = require('md5');
 let response = require('../res');
 let jwt = require('jsonwebtoken');
 let config = require('../config/secret');
-let ip = require('ip');
 let knex = require('../db/koneksi-knex');
 const { v4: uuidv4 } = require('uuid');
-const nodemailer = require("nodemailer");
+const {transporter} = require('../config/transporter-email');
+const {login,register} = require('../helper/validation');
 
 //controller untuk register
 exports.registrasi = async (req,res) =>{
     try {
+        const data = await register.validateAsync(req.body);
         let post = {
             id: uuidv4(),
-            username: req.body.username,
-            email: req.body.email,
-            password: md5(req.body.password),
-            role:req.body.role,
+            username: data.username,
+            email: data.email,
+            password: md5(data.password),
+            role:data.role,
             tanggal_daftar: new Date()
         }
     
@@ -23,24 +24,13 @@ exports.registrasi = async (req,res) =>{
         if (!queryCekemail) {
             const queryInsert = await knex('user').insert(post);
             if (queryInsert) {
-                  // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport({
-                    host: "smtp.gmail.com",
-                    port: 465,
-                    secure: true, // true for 465, false for other ports
-                    auth: {
-                    user: 'lagimakan92@gmail.com', // generated ethereal user
-                    pass: 'password', // generated ethereal password
-                    },
-                });
-
-                  // send mail with defined transport object
+                  // send mail 
                 let info = await transporter.sendMail({
-                    from: '"Express-js-api 👻" <lagimakan92@gmail.com>', // sender address
-                    to: post.email, // list of receivers
-                    subject: "Hello ✔", // Subject line
-                    text: "Hello world?", // plain text body
-                    html: "<b>Hello world?</b>", // html body
+                    from: '"Express-js-api 👻" <lagimakan92@gmail.com>', 
+                    to: post.email, 
+                    subject: "Hello ✔", 
+                    text: "Hello world?", 
+                    html: "<b>Hello world?</b>",
                 });
 
                 response.ok("Registrasi Berhasil", res)
@@ -58,9 +48,11 @@ exports.registrasi = async (req,res) =>{
 //controler login
 exports.login = async (req,res) =>{
     try {
+        const data = await login.validateAsync(req.body);
+        
         const queryLogin = await knex('user').select('id')
-        .where('email',req.body.email)
-        .andWhere('password',md5(req.body.password)).first();
+        .where('email',data.email)
+        .andWhere('password',md5(data.password)).first();
         
         if (!queryLogin) {
             response.errLogin('Email atau Password Salah!',res);
@@ -68,19 +60,7 @@ exports.login = async (req,res) =>{
             let token = jwt.sign({queryLogin},config.secret,{
                 expiresIn:30
             });
-
-            let data = {
-                id_user:queryLogin.id,
-                //access_token: token,
-                ip_address: ip.address()
-            }
-
-            const queryTokeninsert = await knex('akses_token').insert(data);
-            if (queryTokeninsert) {
-                response.Login(token,data.id_user,res);
-            }else{
-                response.err('Gagal insert token',res);
-            }
+            response.Login(token,queryLogin.id_user,res);
         }
     } catch (error) {
         response.err(error,res);

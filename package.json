@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/diopratama97/express-js-api#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "ip": "^1.1.5",
