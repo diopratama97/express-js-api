@@ -10,6 +10,7 @@ const {login,register} = require('../helper/validation');
 //controller untuk register
 exports.registrasi = async (req,res) =>{
     try {
+        console.log(req.file);
         const data = await register.validateAsync(req.body);
         let post = {
             id: uuidv4(),
@@ -17,7 +18,8 @@ exports.registrasi = async (req,res) =>{
             email: data.email,
             password: md5(data.password),
             role:data.role,
-            tanggal_daftar: new Date()
+            tanggal_daftar: new Date(),
+            photo: req.file.path
         }
     
         let queryCekemail = await knex('user').select('email').where('email',post.email).first();
@@ -25,13 +27,13 @@ exports.registrasi = async (req,res) =>{
             const queryInsert = await knex('user').insert(post);
             if (queryInsert) {
                   // send mail 
-                let info = await transporter.sendMail({
-                    from: '"Express-js-api 👻" <lagimakan92@gmail.com>', 
-                    to: post.email, 
-                    subject: "Hello ✔", 
-                    text: "Hello world?", 
-                    html: "<b>Hello world?</b>",
-                });
+                // let info = await transporter.sendMail({
+                //     from: '"Express-js-api 👻" <lagimakan92@gmail.com>', 
+                //     to: post.email, 
+                //     subject: "Hello ✔", 
+                //     text: "Hello world?", 
+                //     html: "<b>Hello world?</b>",
+                // });
 
                 response.ok("Registrasi Berhasil", res)
             }else{

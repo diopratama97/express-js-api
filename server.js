@@ -6,6 +6,8 @@ const app = express();
 //parse application/json
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+//tampil image
+app.use('/images',express.static('uploads/images'));
 app.use(morgan('dev'));
 
 //panggil routes
