@@ -2,6 +2,8 @@
 
 let response = require('../res');
 let knex = require('../db/koneksi-knex');
+const { v4: uuidv4 } = require('uuid');
+const {hapus,getOne,insertMahasiswa,updateMahasiswa} = require('../helper/validation');
 
 //get all 
 exports.getAllMahasiswa = async (req,res) => {
@@ -16,9 +18,10 @@ exports.getAllMahasiswa = async (req,res) => {
 //get one
 exports.getOneMahasiswa = async (req,res) => {
     try {
-        let id = req.params.id;
-        let getOne = await knex('mahasiswa').select('*').where('id',id).first();
-        response.ok(getOne,res);
+        const {id} = await getOne.validateAsync(req.params);
+        //let id = req.params.id;
+        let getOneMhs = await knex('mahasiswa').select('*').where('id',id).first();
+        response.ok(getOneMhs,res);
     } catch (error) {
         response.err(error,res);
     }
@@ -27,13 +30,14 @@ exports.getOneMahasiswa = async (req,res) => {
 //post data
 exports.addMahasiswa = async (req,res) => {
     try {
-        const {nim,nama,jurusan} = req.body;
-        const insertMahasiswa = {
+        const {nim,nama,jurusan} = await insertMahasiswa.validateAsync(req.body);
+        const insert = {
+            id:uuidv4(),
             nim : nim,
             nama: nama,
             jurusan: jurusan
         }
-        const exe = await knex('mahasiswa').insert(insertMahasiswa);
+        const exe = await knex('mahasiswa').insert(insert);
         if (exe) {
             response.ok('INSERT SUCCESS',res);
         }
@@ -45,16 +49,16 @@ exports.addMahasiswa = async (req,res) => {
 //update data 
 exports.updateMahasiswa = async (req,res) => {
     try {
-        const id = req.params.id;
-        const {nim,nama,jurusan} = req.body;
+        const {id} = await getOne.validateAsync(req.params);
+        const {nim,nama,jurusan} = await updateMahasiswa.validateAsync(req.body);
 
-        const updateMahasiswa = {
+        const update = {
             nim: nim,
             nama: nama,
             jurusan: jurusan
         }
 
-        const exe = await knex('mahasiswa').update(updateMahasiswa).where('id',id);
+        const exe = await knex('mahasiswa').update(update).where('id',id);
         if (exe) {
             response.ok('UPDATE SUCCESS',res)
         }
@@ -65,7 +69,7 @@ exports.updateMahasiswa = async (req,res) => {
 
 exports.deleteMahasiswa = async (req,res) => {
     try {
-        const id = req.params.id;
+        const {id} = await hapus.validateAsync(req.params);
         const deleteMahasiswa = await knex('mahasiswa').where('id',id).del();
         if (deleteMahasiswa) {
             response.ok('DELETE SUCCESS',res);

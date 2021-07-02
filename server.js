@@ -2,10 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
 
 //parse application/json
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+//swagger
+const apiDocs = require('./apidocs.json');
+app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(apiDocs));
+
 //tampil image
 app.use('/images',express.static('uploads/images'));
 app.use(morgan('dev'));

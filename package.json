@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -35,6 +35,7 @@
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.1",
     "sqlite3": "^5.0.2",
+    "swagger-ui-express": "^4.1.6",
     "uuidv4": "^6.2.10"
   }
 }

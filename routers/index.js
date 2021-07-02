@@ -10,16 +10,16 @@ module.exports = (app) => {
         .get(home.index);
 
     //mahasiswa
-    app.route('/Mahasiswa')
-        .get(mahasiswa.getAllMahasiswa);
-    app.route('/Mahasiswa/:id')
+    app.route('/api/Mahasiswa')
+        .get(verification(),mahasiswa.getAllMahasiswa);
+    app.route('/api/Mahasiswa/:id')
         .get(mahasiswa.getOneMahasiswa);
-    app.route('/Mahasiswa')
+    app.route('/api/Mahasiswa')
         .post(mahasiswa.addMahasiswa);
-    app.route('/Mahasiswa/:id')
+    app.route('/api/Mahasiswa/:id')
         .put(mahasiswa.updateMahasiswa);
-    app.route('/Mahasiswa/:id')
+    app.route('/api/Mahasiswa/:id')
         .delete(mahasiswa.deleteMahasiswa);
-    app.route('/nestedJsonMahasiswa')
+    app.route('/api/nestedJsonMahasiswa')
         .get(mahasiswa.getGroupMatakuliah);
 }
