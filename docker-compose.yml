@@ -1,0 +1,72 @@
+version: "3.7"
+
+services:
+  # mysql:
+  #   container_name: mysql_service
+  #   image: mysql:latest
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MYSQL_DATABASE=mydb
+  #     - MYSQL_USER=dio
+  #     - MYSQL_PASSWORD=password123
+  #     - MYSQL_ROOT_PASSWORD=password
+  #     - MYSQL_ALLOW_EMPTY_PASSWORD= true
+  #   volumes:
+  #     - ./data/mysql/dbb:/var/lib/mysql
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres:10
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_PASSWORD=R00Tpostgres
+  #     - POSTGRES_DB=testdb
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data:rw
+
+  # minio:
+  #   image: "minio/minio:RELEASE.2021-06-07T21-40-51Z"
+  #   ports:
+  #     - 9000:9000
+  #     - 9001:9001
+  #   environment:
+  #     MINIO_ACCESS_KEY: minio
+  #     MINIO_SECRET_KEY: minio-test
+  #   command: server /data
+  #   volumes:
+  #     - minio:/data:rw
+  #   depends_on:
+  #     - postgres
+
+  # redis:
+  #   image: "redis:5.0-alpine"
+  #   ports:
+  #     - 6379:6379
+  #   command: redis-server --requirepass redis-test
+  #   depends_on:
+  #     - postgres
+  #     - minio
+
+  # rabbitmq:
+  #   image: "rabbitmq:3-management"
+  #   hostname: "rabbit"
+  #   ports:
+  #     - 15672:15672
+  #     - 5672:5672
+  #   labels:
+  #     NAME: "rabbitmq"
+  #   depends_on:
+  #     - postgres
+  #     - minio
+
+  app-express-js:
+    container_name: app-express-js
+    image: app-express-js:1.0
+    ports:
+      - 3030:3030
+    depends_on:
+      - mysql
+# volumes:
+#   pgdata:
+#   minio:
