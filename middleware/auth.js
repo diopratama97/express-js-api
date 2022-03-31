@@ -86,6 +86,11 @@ exports.login = async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
+      res.cookie("userId", queryLogin.id, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
       response.Login(accessToken, queryLogin.id, res);
     }
   } catch (error) {
@@ -105,6 +110,7 @@ exports.Logout = async (req, res) => {
 
   await knex("users").update("refresh_token", null).where("id", user.id);
   res.clearCookie("refreshToken");
+  res.clearCookie("userId");
   return res.sendStatus(200);
 };
 
