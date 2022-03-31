@@ -1,369 +1,435 @@
 {
-    "openapi":"3.0.0",
-    "info":{
-        "title": "API Documentations",
-        "description": "Daftar Api express JS",
-        "version": "1.0.0",
-        "contact": {
-            "name": "Dio Y.Pratama",
-            "email": "dyopratama6@gmail.com"
-          }
-    },
-    "servers": [
-        {
-          "url": "http://localhost:3030",
-          "description": "local"
-        }
-      ],
-    
-      "tags": [
-        {
-            "name": "Auth",
-            "description": "Authentication"
-        },
-        {
-          "name": "Mahasiswa",
-          "description": "API For Mahasiswa"
-        }
-      ],
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentations",
+    "description": "Daftar Api express JS",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Dio Y.Pratama",
+      "email": "dyopratama6@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3030",
+      "description": "local"
+    }
+  ],
 
-      "paths": {
-        "/api/auth/register": {
-          "post": {
-              "summary": "Register Account",
-              "operationId": "Register",
-              "description": "Register Authentication",
-              "tags": ["Auth"],
-              "requestBody": {
-                "required":true,
-                "content": {
-                  "multipart/form-data": {
-                    "schema": {
-                      "type": "object",
-                      "properties": {
-                        "username": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string",
-                          "format": "email"
-                        },
-                        "password": {
-                          "type": "string"
-                        },
-                        "role": {
-                          "type": "integer"
-                        },
-                        "photo":{
-                          "type":"string",
-                          "format":"binary"
-                        }
-                      }
-                    }
-                  }
-                },
-                "description": ""
-              },
-              "parameters": [
-                {
-                  "schema": {
-                    "type": "string",
-                    "default": "application/json"
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "Mahasiswa",
+      "description": "API For Mahasiswa"
+    }
+  ],
+
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register Account",
+        "operationId": "Register",
+        "description": "Register Authentication",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
                   },
-                  "in": "header",
-                  "name": "Accept",
-                  "required": true
-                }
-              ],
-              "responses": {
-                "200": {
-                  "description": "OK"
-                },
-                "400": {
-                  "description": "Bad Request (Invalid request body)"
-                },
-                "500": {
-                  "description": "Internal Server Error"
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "integer"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
+          },
+          "description": ""
         },
-        "/api/auth/login": {
-            "post": {
-                "summary": "Login / Verify OAuth",
-                "operationId": "login",
-                "description": "Login Authentication",
-                "tags": ["Auth"],
-                "requestBody": {
-                  "required":true,
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "object",
-                        "properties": {
-                          "email": {
-                            "type": "string",
-                            "format": "email"
-                          },
-                          "password": {
-                            "type": "string"
-                          }
-                        },
-                        "required":["email","password"]
-                      },
-                      "examples": {
-                          "value": {
-                              "email": "demo@rocketmail.net",
-                              "password": "yourpassword"
-                          }
-                      }
-                    }
-                  },
-                  "description": ""
-                },
-                "parameters": [
-                  {
-                    "schema": {
-                      "type": "string",
-                      "default": "application/json"
-                    },
-                    "in": "header",
-                    "name": "Accept",
-                    "required": true
-                  }
-                ],
-                "responses": {
-                  "200": {
-                    "description": "OK"
-                  },
-                  "400": {
-                    "description": "Bad Request (Invalid request body)"
-                  },
-                  "404": {
-                    "description": "Not Found (User not found or OAuth not valid)"
-                  },
-                  "500": {
-                    "description": "Internal Server Error"
-                  }
-                }
-              }
-          },
-        "/api/mahasiswa": {
-          "get": {
-            "summary": "Get all mahasiswa",
-            "tags": ["Mahasiswa"],
-            "responses": {
-              "200": {
-                "description": "OK"
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "500": {
-                "description": "Internal Server Error"
-              }
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
             },
-            "description": "Get All Mahasiswa",
-            "security": [
-              {
-                "Authorization": []
-              }
-            ],
-            "operationId": "GetAllMahasiswa"
-          },
-          "post": {
-            "summary": "Insert Mahasiswa",
-            "tags": ["Mahasiswa"],
-            "requestBody": {
-              "required":true,
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "nim": {
-                        "type": "integer"
-                      },
-                      "nama":{
-                        "type": "string"
-                      },
-                      "jurusan":{
-                        "type": "string"
-                      }
-                    },
-                    "required":["nim","nama","jurusan"]
-                  },
-                  "examples": {
-                      "value": {
-                          "nim": 1,
-                          "nama": "yourname",
-                          "jurusan":"jurusan"
-                      }
-                  }
-                }
-              },
-              "description": ""
-            },
-            "responses": {
-              "200": {
-                "description": "OK"
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "500": {
-                "description": "Internal Server Error"
-              }
-            },
-            "description": "Insert Mahasiswa",
-            "security": [
-              {
-                "Authorization": []
-              }
-            ],
-            "operationId": "InsertMahasiswa"
+            "in": "header",
+            "name": "Accept",
+            "required": true
           }
-        },
-        "/api/mahasiswa/{id}": {
-          "get": {
-            "summary": "Get One mahasiswa",
-            "tags": ["Mahasiswa"],
-            "responses": {
-              "200": {
-                "description": "OK"
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "500": {
-                "description": "Internal Server Error"
-              }
-            },
-            "description": "Get One Mahasiswa",
-            "parameters": [
-              {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "in": "path",
-                "name": "id",
-                "required" :true
-              }
-            ],
-            "security": [
-              {
-                "Authorization": []
-              }
-            ],
-            "operationId": "GetOneMahasiswa"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
-          "put": {
-            "summary": "Update Mahasiswa",
-            "tags": ["Mahasiswa"],
-            "requestBody": {
-              "required":true,
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "nim": {
-                        "type": "integer"
-                      },
-                      "nama":{
-                        "type": "string"
-                      },
-                      "jurusan":{
-                        "type": "string"
-                      }
-                    },
-                    "required":["nim","nama","jurusan"]
-                  },
-                  "examples": {
-                      "value": {
-                          "nim": 1,
-                          "nama": "yourname",
-                          "jurusan":"jurusan"
-                      }
-                  }
-                }
-              },
-              "description": ""
-            },
-            "responses": {
-              "200": {
-                "description": "OK"
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "500": {
-                "description": "Internal Server Error"
-              }
-            },
-            "description": "Update Mahasiswa",
-            "parameters": [
-              {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "in": "path",
-                "name": "id",
-                "required" :true
-              }
-            ],
-            "security": [
-              {
-                "Authorization": []
-              }
-            ],
-            "operationId": "UpdateMahasiswa"
+          "400": {
+            "description": "Bad Request (Invalid request body)"
           },
-          "delete": {
-            "summary": "Delete mahasiswa",
-            "tags": ["Mahasiswa"],
-            "responses": {
-              "200": {
-                "description": "OK"
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "500": {
-                "description": "Internal Server Error"
-              }
-            },
-            "description": "Delete Mahasiswa",
-            "parameters": [
-              {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "in": "path",
-                "name": "id",
-                "required" :true
-              }
-            ],
-            "security": [
-              {
-                "Authorization": []
-              }
-            ],
-            "operationId": "DeleteMahasiswa"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
+      }
     },
-
-      "components": {
-        "securitySchemes": {
-          "Authorization": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
+    "/api/auth/login": {
+      "post": {
+        "summary": "Login / Verify OAuth",
+        "operationId": "login",
+        "description": "Login Authentication",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "password"]
+              },
+              "examples": {
+                "value": {
+                  "email": "demo@rocketmail.net",
+                  "password": "yourpassword"
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "summary": "Logout",
+        "operationId": "logout",
+        "description": "Logout",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/refreshToken": {
+      "get": {
+        "summary": "refreshToken",
+        "operationId": "refreshToken",
+        "description": "refreshToken",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            },
+            "in": "header",
+            "name": "Accept",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Invalid request body)"
+          },
+          "404": {
+            "description": "Not Found (User not found or OAuth not valid)"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/mahasiswa": {
+      "get": {
+        "summary": "Get all mahasiswa",
+        "tags": ["Mahasiswa"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Get All Mahasiswa",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "GetAllMahasiswa"
+      },
+      "post": {
+        "summary": "Insert Mahasiswa",
+        "tags": ["Mahasiswa"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nim": {
+                    "type": "integer"
+                  },
+                  "nama": {
+                    "type": "string"
+                  },
+                  "jurusan": {
+                    "type": "string"
+                  }
+                },
+                "required": ["nim", "nama", "jurusan"]
+              },
+              "examples": {
+                "value": {
+                  "nim": 1,
+                  "nama": "yourname",
+                  "jurusan": "jurusan"
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Insert Mahasiswa",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "InsertMahasiswa"
+      }
+    },
+    "/api/mahasiswa/{id}": {
+      "get": {
+        "summary": "Get One mahasiswa",
+        "tags": ["Mahasiswa"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Get One Mahasiswa",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "GetOneMahasiswa"
+      },
+      "put": {
+        "summary": "Update Mahasiswa",
+        "tags": ["Mahasiswa"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nim": {
+                    "type": "integer"
+                  },
+                  "nama": {
+                    "type": "string"
+                  },
+                  "jurusan": {
+                    "type": "string"
+                  }
+                },
+                "required": ["nim", "nama", "jurusan"]
+              },
+              "examples": {
+                "value": {
+                  "nim": 1,
+                  "nama": "yourname",
+                  "jurusan": "jurusan"
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Update Mahasiswa",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "UpdateMahasiswa"
+      },
+      "delete": {
+        "summary": "Delete mahasiswa",
+        "tags": ["Mahasiswa"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "Delete Mahasiswa",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "operationId": "DeleteMahasiswa"
+      }
     }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
 }
