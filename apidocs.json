@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3030",
+      "url": "https://express-jsapps.herokuapp.com",
       "description": "local"
     }
   ],
