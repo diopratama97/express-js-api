@@ -26,6 +26,6 @@ routes(app);
 //daftar menu routes dari index
 app.use("/api", require("./middleware"));
 
-app.listen(3030, () => {
-  console.log(`Server started on port 3030`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`);
 });
