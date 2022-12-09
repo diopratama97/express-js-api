@@ -17,7 +17,7 @@ exports.registrasi = async (req, res) => {
       username: data.username,
       email: data.email,
       password: md5(data.password),
-      role: data.role,
+      //role: data.role,
       photo: req.file.path,
     };
 
@@ -146,4 +146,7 @@ exports.tokenRefresh = async (req, res) => {
 };
 exports.halamanrahasia = (req, res) => {
   response.ok("ini untuk role 2", res);
+};
+exports.fileupload = (req, res) => {
+  return response.ok(req.files, res);
 };

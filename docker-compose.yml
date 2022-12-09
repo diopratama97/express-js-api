@@ -18,7 +18,7 @@ services:
     container_name: postgres
     image: postgres:10
     ports:
-      - 5432:5432
+      - 1122:5432
     environment:
       - POSTGRES_PASSWORD=R00Tpostgres
       - POSTGRES_DB=express-js-api
