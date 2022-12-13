@@ -5,6 +5,7 @@ const app = express();
 const swaggerUi = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const chokidar = require("chokidar");
+const file = require("./controller/filewatcher");
 
 //app use cookie parser
 app.use(cookieParser());
@@ -31,10 +32,9 @@ app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
 
-const watcher = chokidar.watch("./uploads/images", {
-  persistent: true,
+const watcher = chokidar.watch("../uploads", {
   ignoreInitial: true,
-  ignored: ["./uploads/images/*.txt", "./uploads/images/*.docs"],
+  ignored: ["../uploads/**/*.sql", "../uploads/**/*.docs"],
 });
 
 //check watcher jalan
@@ -43,8 +43,9 @@ watcher.on("ready", () => {
 });
 
 //handle ketika file masuk
-watcher.on("add", (path) => {
-  console.log(path, "this file add.....");
+watcher.on("add", async (path) => {
+  await file.monitoring(path);
+  //console.log(path, "this file add.....");
 });
 
 //handle ketika delete file
@@ -57,7 +58,7 @@ watcher.on("change", (path) => {
   console.log(path, "this file was updated....");
 });
 
-//handle ketika update file
+//handle ketika error
 watcher.on("error", (err) => {
   console.log(err);
 });

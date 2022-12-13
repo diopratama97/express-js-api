@@ -1,11 +1,13 @@
 // Update with your config settings.
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = {
   development: {
     client: "postgresql",
     connection: {
       connectionString:
-        "postgres://ehiraxxzyuzsqg:96003a23693de9147dde1b2d9d9bf6eb990918a8aac63e82cc540fa5b59f1b4f@ec2-52-201-124-168.compute-1.amazonaws.com:5432/dc31em6b8org9s",
+        "postgres://postgress:R00Tpostgress@localhost:1122/express-js-api",
       ssl: { rejectUnauthorized: false },
     },
   },
@@ -16,13 +18,15 @@ module.exports = {
       database: process.env.DB_NAME,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
     },
     pool: {
       min: 2,
       max: 10,
     },
-    migrations: {
-      tableName: "knex_user_migrations",
-    },
+    // migrations: {
+    //   tableName: "knex_user_migrations",
+    // },
   },
 };
