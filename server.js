@@ -32,9 +32,12 @@ app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
 
-const watcher = chokidar.watch("../uploads", {
+const watcher = chokidar.watch("../../../../Videos/uploads", {
   ignoreInitial: true,
-  ignored: ["../uploads/**/*.sql", "../uploads/**/*.docs"],
+  ignored: [
+    "../../../../Videos/uploads/**/*.sql",
+    "../../../../Videos/uploads/**/*.docs",
+  ],
 });
 
 //check watcher jalan
@@ -45,7 +48,7 @@ watcher.on("ready", () => {
 //handle ketika file masuk
 watcher.on("add", async (path) => {
   await file.monitoring(path);
-  //console.log(path, "this file add.....");
+  // console.log(path, "this file add.....");
 });
 
 //handle ketika delete file
