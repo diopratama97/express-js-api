@@ -47,19 +47,19 @@ watcher.on("ready", () => {
 
 //handle ketika file masuk
 watcher.on("add", async (path) => {
+  //console.log(path, "this file add.....");
   await file.monitoring(path);
-  // console.log(path, "this file add.....");
 });
 
 //handle ketika delete file
-watcher.on("unlink", (path) => {
-  console.log(path, "this file was deleted....");
-});
+// watcher.on("unlink", (path) => {
+//   console.log(path, "this file was deleted....");
+// });
 
 //handle ketika update file
-watcher.on("change", (path) => {
-  console.log(path, "this file was updated....");
-});
+// watcher.on("change", (path) => {
+//   console.log(path, "this file was updated....");
+// });
 
 //handle ketika error
 watcher.on("error", (err) => {

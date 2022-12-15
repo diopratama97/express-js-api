@@ -13,9 +13,19 @@ const {
 //get all
 exports.getAllMahasiswa = async (req, res) => {
   try {
-    let allMahasiswa = await knex("mahasiswa").select("*");
-    response.ok(allMahasiswa, res);
+    for (let i = 0; i < 100; i++) {
+      const datas = {
+        id: uuidv4(),
+        catalog_cover: `img-${i + 1}.JPG`,
+        catalog_file: `file-${i + 1}.pdf`,
+        folder_name: "gramedia",
+      };
+      await knex("uploads").insert(datas);
+    }
+    // let allMahasiswa = await knex("mahasiswa").select("*");
+    return response.ok("okee", res);
   } catch (error) {
+    console.log(error);
     response.err(error, res);
   }
 };
