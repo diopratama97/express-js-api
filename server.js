@@ -32,11 +32,11 @@ app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
 
-const watcher = chokidar.watch("../../../../Videos/uploads", {
+const watcher = chokidar.watch("/home/lagimakan/Videos/uploads", {
   ignoreInitial: true,
   ignored: [
-    "../../../../Videos/uploads/**/*.sql",
-    "../../../../Videos/uploads/**/*.docs",
+    "/home/lagimakan/Videos/uploads/**/*.sql",
+    "/home/lagimakan/Videos/uploads/**/*.docs",
   ],
 });
 

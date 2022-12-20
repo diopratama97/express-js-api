@@ -34,8 +34,8 @@ services:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio-express-js-api
     command: server /data
-    volumes:
-      - minio:/data:rw
+    # volumes:
+    #   - minio:/data:rw
     depends_on:
       - postgres
 
@@ -70,4 +70,4 @@ services:
   #     - minio
 volumes:
   pgdata:
-  minio:
+  # minio:

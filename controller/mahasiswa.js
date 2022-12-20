@@ -16,9 +16,9 @@ exports.getAllMahasiswa = async (req, res) => {
     for (let i = 0; i < 100; i++) {
       const datas = {
         id: uuidv4(),
-        catalog_cover: `img-${i + 1}.JPG`,
+        catalog_cover: `img-${i + 1}.jpg`,
         catalog_file: `file-${i + 1}.pdf`,
-        folder_name: "gramedia",
+        folder_name: "intan",
       };
       await knex("uploads").insert(datas);
     }
