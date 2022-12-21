@@ -30,6 +30,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "geoip-lite": "^1.4.2",
+    "ghostscript4js": "^3.2.1",
     "html-pdf": "^3.0.1",
     "html-pdf-node": "^1.0.7",
     "ip": "^1.1.5",
@@ -50,6 +51,7 @@
     "pg": "^8.7.3",
     "phantom-html-to-pdf": "^0.6.1",
     "puppeteer": "^10.1.0",
+    "sharp": "^0.31.2",
     "sqlite3": "^5.0.2",
     "swagger-ui-express": "^4.1.6",
     "uuidv4": "^6.2.10"
