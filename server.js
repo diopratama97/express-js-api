@@ -38,6 +38,10 @@ const watcher = chokidar.watch("/home/lagimakan/Videos/uploads", {
     "/home/lagimakan/Videos/uploads/**/*.sql",
     "/home/lagimakan/Videos/uploads/**/*.docs",
   ],
+  awaitWriteFinish: {
+    stabilityThreshold: 5000,
+    pollInterval: 400,
+  },
 });
 
 //check watcher jalan
@@ -47,7 +51,7 @@ watcher.on("ready", () => {
 
 //handle ketika file masuk
 watcher.on("add", async (path) => {
-  //console.log(path, "this file add.....");
+  console.log(path, "this file add.....");
   await file.monitoring(path);
 });
 
